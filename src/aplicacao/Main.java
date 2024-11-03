@@ -8,6 +8,8 @@ import java.util.Scanner;
 import entidades.Agendamento;
 import entidades.Barbeiro;
 import entidades.Cliente;
+import entidades.ClientePf;
+import entidades.ClientePj;
 import entidades.enums.Status;
 
 public class Main {
@@ -29,17 +31,34 @@ public class Main {
         String telefoneBarbeiro = sc.nextLine();
         Barbeiro barbeiro = new Barbeiro(nomeBarbeiro, cpfBarbeiro, emailBarbeiro, telefoneBarbeiro);
         
-        System.out.println("Cadastro do Cliente:");
-        System.out.print("Nome: ");
-        String nomeCliente = sc.nextLine();
-        System.out.print("CPF: ");
-        String cpfCliente = sc.nextLine();
-        System.out.print("Email: ");
-        String emailCliente = sc.nextLine();
-        System.out.print("Telefone: ");
-        String telefoneCliente = sc.nextLine();
-        Cliente cliente = new Cliente(nomeCliente, cpfCliente, emailCliente, telefoneCliente);
         
+        
+        System.out.println("Cadastro do Cliente:");
+        System.out.println("o cliente é Pessoa física ou juridica:(PF/Pj)");
+        String identificacao=sc.nextLine();
+        Cliente cliente;
+        if (identificacao.equals("Pf")) {
+	        System.out.print("Nome: ");
+	        String nomeClientepf = sc.nextLine();
+	        System.out.print("Email: ");
+	        String emailClientepf = sc.nextLine();
+	        System.out.print("Telefone: ");
+	        String telefoneClientepf = sc.nextLine();
+	        System.out.print("CPF: ");
+	        String cpfCliente = sc.nextLine();
+	        cliente = new ClientePf(nomeClientepf, emailClientepf, telefoneClientepf, cpfCliente);
+        }
+	     else {
+	     	System.out.print("Nome: ");
+	        String nomeClientepj = sc.nextLine();
+	        System.out.print("Email: ");
+	        String emailClientepj = sc.nextLine();
+	        System.out.print("Telefone: ");
+	        String telefoneClientepj = sc.nextLine();
+	        System.out.print("CPF: ");
+	        String cnpjCliente = sc.nextLine();
+	        cliente = new ClientePj(nomeClientepj, emailClientepj, telefoneClientepj, cnpjCliente);
+        }
         //Tratamento data e hora para o agendamento
         Date dataHora = null;
         boolean dataValida;

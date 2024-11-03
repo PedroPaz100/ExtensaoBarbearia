@@ -6,17 +6,15 @@ import entidades.enums.Status;
 
 public class Cliente {
 	
-	private String nome;
-	private String CPF;
+	protected String nome;
 	private String email;
 	private String telefone;
 	
 	public Cliente() {
 	}
-	public Cliente(String nome, String CPF,String email, String telefone) {
+	public Cliente(String nome,String email, String telefone) {
 		super();
 		this.nome = nome;
-		this.CPF = CPF;
 		this.email = email;
 		this.telefone = telefone;
 	}
@@ -34,9 +32,6 @@ public class Cliente {
 	}
 	public String getNome() {
 		return nome;
-	}
-	public String getCPF() {
-		return CPF;
 	}
 	 public Agendamento agendar(Date dataHora, Barbeiro barbeiro) {
 	        System.out.println("Agendamento realizado para o cliente " + nome);
