@@ -1,4 +1,5 @@
 package aplicacao;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,7 @@ import entidades.enums.Status;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -30,7 +31,7 @@ public class Main {
         System.out.print("Telefone: ");
         String telefoneBarbeiro = sc.nextLine();
         Barbeiro barbeiro = new Barbeiro(nomeBarbeiro, cpfBarbeiro, emailBarbeiro, telefoneBarbeiro);
-        
+        barbeiro.salvar();
         
         
         System.out.println("Cadastro do Cliente:");
@@ -59,11 +60,12 @@ public class Main {
 	        String cnpjCliente = sc.nextLine();
 	        cliente = new ClientePj(nomeClientepj, emailClientepj, telefoneClientepj, cnpjCliente);
         }
+        cliente.salvar();
         //Tratamento data e hora para o agendamento
         Date dataHora = null;
         boolean dataValida;
         do {
-            System.out.println("Informe a data e hora do agendamento (dd/MM yyyy HH:mm): ");
+            System.out.println("Informe a data e hora do agendamento (dd/MM/yyyy HH:mm): ");
             String entrada = sc.nextLine();
             try {
                 dataHora = sdf.parse(entrada);
@@ -75,10 +77,10 @@ public class Main {
         } while (!dataValida);        
         
         Agendamento agendamento = cliente.agendar(dataHora, barbeiro);
-        // Atualiza o status
+        // Atualiza o status e salva no banco
         agendamento.setStatus(Status.CONFIRMADO);
         Agendamento.exibirDetalhesAgendamento(agendamento, sdfSaida);
-        
+        agendamento.salvar();
         
         sc.close();
 	}

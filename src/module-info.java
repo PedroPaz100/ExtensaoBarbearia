@@ -6,4 +6,5 @@
  *
  */
 module ExtensaoBarbearia {
+	requires java.sql;
 }

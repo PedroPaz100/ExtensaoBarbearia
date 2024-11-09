@@ -3,7 +3,10 @@ package entidades;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
+import aplicacao.Bda;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import entidades.enums.Status;
 
 public class Agendamento {
@@ -20,6 +23,21 @@ public class Agendamento {
 		this.barbeiro = barbeiro;
 		this.cliente = cliente;
 	}
+	public void salvar() throws SQLException {
+        String sql = "INSERT INTO agendamento (data_hora, status, barbeiro_cpf, cliente_identificacao) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = Bda.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setTimestamp(1, new java.sql.Timestamp(dataHora.getTime())); 
+            stmt.setString(2, status.name()); 
+            stmt.setString(3, barbeiro.getCPF()); 
+            stmt.setString(4, cliente.getIdentificacao()); 
+
+            stmt.executeUpdate();
+            System.out.println("Agendamento salvo com sucesso!");
+        }
+    }
 	public Date getDataHora() {
 		return dataHora;
 	}
